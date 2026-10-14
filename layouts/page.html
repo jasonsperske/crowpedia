@@ -1,0 +1,15 @@
+{{ define "main" }}
+<div class="with-aside">
+  <article class="post">
+    <header>
+      <h1><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></h1>
+      <p class="meta">
+        {{ .Params.author | default site.Params.author }} on the
+        <a href="{{ .Parent.RelPermalink }}">{{ index site.Params.sources .Params.source }}</a>
+      </p>
+    </header>
+    {{ .Content }}
+  </article>
+  {{ partial "aside.html" (dict "note" (.Params.note | default "" | .RenderString) "page" .) }}
+</div>
+{{ end }}

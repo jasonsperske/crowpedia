@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="with-aside">
+  <div>
+    <h1>{{ .Title }}</h1>
+    {{ if .Params.full_text }}
+      {{ range .Pages.ByWeight }}
+      <article class="message" id="message-{{ .Params.archive_position }}">
+        <h2><a href="#message-{{ .Params.archive_position }}">{{ .Title }}</a></h2>
+        <p class="meta">circa <time datetime="{{ .Date.Format "2006-01" }}">{{ .Date.Format "January 2006" }}</time></p>
+        {{ .Content }}
+        {{ with .Params.date_estimate }}
+        <details class="estimate">
+          <summary>Why this date?</summary>
+          <p>Estimated between {{ time.Format ":date_long" .earliest }} and {{ time.Format ":date_long" .latest }} ({{ .confidence }} confidence).</p>
+          <ul>{{ range .evidence }}<li>{{ . }}</li>{{ end }}</ul>
+        </details>
+        {{ end }}
+      </article>
+      {{ end }}
+    {{ else }}
+    <ul class="post-list">
+      {{ range .Pages.ByDate }}
+      <li><a href="{{ .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date | time.Format ":date_long" }}</time></a></li>
+      {{ end }}
+    </ul>
+    {{ end }}
+  </div>
+  {{ partial "aside.html" (dict "note" .Content "page" .) }}
+</div>
+{{ end }}

@@ -1,0 +1,12 @@
+{{- /* Links to an archive section: the undated page itself, or its year pages. */ -}}
+{{- with site.GetPage (.Get 0) -}}
+<ul class="archive-links">
+  {{- if .Params.full_text }}
+  <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+  {{- else }}
+  {{- range (where .Sections "Params.full_text" "!=" true).ByTitle }}
+  <li><a href="{{ .RelPermalink }}">{{ path.Base .Path }}</a> <span class="count">{{ len .Pages }} {{ cond (eq (len .Pages) 1) "post" "posts" }}</span></li>
+  {{- end }}
+  {{- end }}
+</ul>
+{{- end -}}

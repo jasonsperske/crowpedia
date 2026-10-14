@@ -1,0 +1,18 @@
+{{- /* Prev/next through the whole archive in date order. The undated page
+       comes first, since its messages predate every dated post. */ -}}
+{{- $undated := site.GetPage "posts/aol/undated" -}}
+{{- $chain := slice $undated -}}
+{{- range site.RegularPages.ByDate }}{{ $chain = $chain | append . }}{{ end -}}
+{{- $prev := false }}{{ $next := false -}}
+{{- range $i, $p := $chain -}}
+  {{- if eq $p $ -}}
+    {{- if gt $i 0 }}{{ $prev = index $chain (sub $i 1) }}{{ end -}}
+    {{- if lt $i (sub (len $chain) 1) }}{{ $next = index $chain (add $i 1) }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- if or $prev $next }}
+<nav class="pager" aria-label="Archive">
+  {{ with $prev }}<a rel="prev" href="{{ .RelPermalink }}">&larr; Prev.</a>{{ end }}
+  {{ with $next }}<a rel="next" href="{{ .RelPermalink }}">Next &rarr;</a>{{ end }}
+</nav>
+{{- end }}

@@ -1,0 +1,9 @@
+<aside>
+  {{ partial "pager.html" .page }}
+  {{ with .note }}
+  <section class="note">
+    <h2>Of note</h2>
+    {{ . }}
+  </section>
+  {{ end }}
+</aside>

@@ -1,0 +1,19 @@
+baseURL = "https://crowpedia.com/"
+locale = "en-us"
+title = "Crowpedia"
+
+# Keep the legacy /posts/AOL/1998-03-15.html style URLs working.
+uglyURLs = true
+disableKinds = ["taxonomy", "term", "rss"]
+
+[params]
+description = "An archive of Adam Duritz's message board posts, 1995-2000."
+author = "Adam Duritz"
+
+[params.sources]
+aol = "AOL message board"
+newsgroup = "Emerald.net newsgroup (countingcrows.misc)"
+
+# Archive fidelity: keep the posts' original straight quotes and "..." intact.
+[markup.goldmark.extensions]
+typographer = false
